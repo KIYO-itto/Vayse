@@ -1,1 +1,414 @@
+@import "tailwindcss";
 
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background-color: #0a0a08;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-cinzel), Georgia, "Times New Roman", serif;
+  letter-spacing: 0.03em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Fundos / texturas                                                   */
+/* ------------------------------------------------------------------ */
+.table-bg {
+  background-image: url("/images/table.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.cork-bg {
+  background-image: url("/images/corkboard.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.wood-bg {
+  background-image: url("/images/wood.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Plaqueta de madeira (painéis do tabuleiro) */
+.plaque {
+  position: relative;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(201, 164, 94, 0.35);
+  background: linear-gradient(
+    160deg,
+    rgba(42, 28, 15, 0.93),
+    rgba(20, 13, 8, 0.96)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.55),
+    0 14px 34px rgba(0, 0, 0, 0.5);
+}
+
+.plaque-wood {
+  background:
+    linear-gradient(160deg, rgba(43, 28, 15, 0.9), rgba(20, 13, 8, 0.94)),
+    url("/images/wood.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Parafuso decorativo de canto */
+.screw {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 30%, #e2e8f0, #64748b 55%, #1e293b);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+.screw::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  bottom: 15%;
+  width: 1.5px;
+  background: rgba(15, 23, 42, 0.85);
+  transform: translateX(-50%) rotate(28deg);
+  border-radius: 2px;
+}
+
+/* Botão-selo de cera */
+.wax-btn {
+  background: radial-gradient(
+    130% 150% at 30% 20%,
+    #f87171,
+    #dc2626 45%,
+    #991b1b 82%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.35),
+    0 12px 26px rgba(153, 27, 27, 0.4);
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+
+.wax-btn:hover {
+  filter: brightness(1.1);
+}
+
+.wax-btn:active {
+  transform: scale(0.97);
+}
+
+.wax-btn:disabled {
+  filter: grayscale(0.7) brightness(0.6);
+  cursor: not-allowed;
+}
+
+.gold-btn {
+  background: linear-gradient(
+    180deg,
+    rgba(126, 84, 22, 0.6),
+    rgba(58, 40, 10, 0.65)
+  );
+  border: 1px solid rgba(212, 165, 80, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+
+.gold-btn:hover {
+  filter: brightness(1.15);
+}
+
+.gold-btn:active {
+  transform: scale(0.97);
+}
+
+/* Verso de carta com padrão de losangos */
+.card-back {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(190, 18, 60, 0.25) 0 5px,
+      transparent 5px 10px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(190, 18, 60, 0.2) 0 5px,
+      transparent 5px 10px
+    ),
+    radial-gradient(circle at 50% 40%, #6b0f1a, #2a060c 78%);
+  border: 1px solid rgba(217, 164, 90, 0.45);
+  box-shadow:
+    inset 0 0 0 3px rgba(0, 0, 0, 0.35),
+    inset 0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+.card-back::after {
+  content: "🔮";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  opacity: 0.85;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
+}
+
+/* Mini verso de carta (mãos dos jogadores na mesa) */
+.card-back-mini {
+  position: relative;
+  background:
+    repeating-linear-gradient(45deg, rgba(190, 18, 60, 0.32) 0 2px, transparent 2px 4px),
+    repeating-linear-gradient(-45deg, rgba(190, 18, 60, 0.26) 0 2px, transparent 2px 4px),
+    radial-gradient(circle at 50% 40%, #6b0f1a, #2a060c 78%);
+  border: 1px solid rgba(217, 164, 90, 0.45);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.65);
+}
+
+/* Brilho diagonal sutil sobre cartas */
+.card-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.07) 45%,
+    transparent 60%
+  );
+}
+
+/* Disco numerado de madeira (dicas do perito) */
+.num-disc {
+  border-radius: 9999px;
+  background: radial-gradient(circle at 30% 25%, #f5e6c4, #c9a05a 55%, #8a6426);
+  color: #241505;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+.num-disc-on {
+  background: radial-gradient(circle at 30% 25%, #fbbf24, #d97706 55%, #92400e);
+  color: #1c1000;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 0 14px rgba(251, 191, 36, 0.55),
+    0 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Input entalhado */
+.engraved-input {
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(201, 164, 94, 0.28);
+  box-shadow:
+    inset 0 2px 8px rgba(0, 0, 0, 0.65),
+    0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.engraved-input:focus {
+  outline: none;
+  border-color: rgba(220, 38, 38, 0.7);
+  box-shadow:
+    inset 0 2px 8px rgba(0, 0, 0, 0.65),
+    0 0 0 3px rgba(220, 38, 38, 0.18);
+}
+
+/* Fita adesiva */
+.tape {
+  background: rgba(153, 27, 27, 0.82);
+  border: 1px solid rgba(120, 20, 20, 0.8);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 3px 8px rgba(0, 0, 0, 0.45);
+}
+
+/* ------------------------------------------------------------------ */
+/* Animações                                                           */
+/* ------------------------------------------------------------------ */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  70% {
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseSoft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(225, 29, 72, 0);
+  }
+}
+
+@keyframes glowGold {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(251, 191, 36, 0);
+  }
+}
+
+/* Carta sendo distribuída na mesa */
+@keyframes dealIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Flip 3D da carta de papel secreto */
+@keyframes roleFlip {
+  0% {
+    transform: rotateY(185deg) scale(0.9);
+  }
+  100% {
+    transform: rotateY(0deg) scale(1);
+  }
+}
+
+/* Alfinete caindo na cortiça */
+@keyframes pinDrop {
+  0% {
+    transform: translate(-50%, -16px) scale(0.4);
+    opacity: 0;
+  }
+  60% {
+    transform: translate(-50%, 2px) scale(1.15);
+  }
+  100% {
+    transform: translate(-50%, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+.anim-fade-up {
+  animation: fadeUp 0.35s ease both;
+}
+
+.anim-pop {
+  animation: popIn 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+.anim-pulse-soft {
+  animation: pulseSoft 1.6s ease-in-out infinite;
+}
+
+.anim-glow {
+  animation: glowPulse 1.8s ease-out infinite;
+}
+
+.anim-glow-gold {
+  animation: glowGold 1.8s ease-out infinite;
+}
+
+.anim-deal {
+  animation: dealIn 0.45s cubic-bezier(0.2, 0.8, 0.3, 1.1) both;
+}
+
+.anim-role-flip {
+  animation: roleFlip 1s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+.anim-pin {
+  animation: pinDrop 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+}
+
+/* Barbante vermelho do tabuleiro de investigação */
+.string-line {
+  stroke: #dc2626;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  fill: none;
+  stroke-dasharray: 3 9;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
+}
+
+/* ------------------------------------------------------------------ */
+/* Scrollbar                                                           */
+/* ------------------------------------------------------------------ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #4a3b22 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #4a3b22;
+  border-radius: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
